@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Evolution of Web Design",
+  "name": "A website that goes over some of the differences of websites in the 90s and early 2000's vs websites of the 2010's and 2020's",
   "icons": [
     {
       "src": "favicon.ico",

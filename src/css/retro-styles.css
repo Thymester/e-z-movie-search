@@ -1,0 +1,31 @@
+/* Retro styles for Home and About pages */
+.home-content, .about-content {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    color: #D2B48C; /* Retro gold color */
+    line-height: 1.6;
+    width: 65%; /* Set the width to a percentage value */
+    margin: 20px auto; /* Add margin to give space around the content */
+    padding: 20px; /* Add padding to give space inside the content */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  .home-title, .about-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FF6347; /* Retro red color */
+    text-align: center; /* Center the title */
+  }
+  
+  .home-subtitle, .about-subtitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00CED1; /* Retro turquoise color */
+    text-align: center; /* Center the subtitle */
+  }
+  
+  .retro-bg {
+    background-color: #000000; /* Retro black background */
+    padding: 20px;
+  }
+  

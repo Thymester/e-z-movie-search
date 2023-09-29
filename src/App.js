@@ -1,15 +1,26 @@
-// App.js
 import React from 'react';
-import MovieSearch from './components/MovieSearch';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './components/Home';
+import About from './components/About';
+import Footer from './components/Footer';
+import ModernPage from './components/ModernPage';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1 className='websiteTitle'>E-Z Movie Search</h1>
-      <MovieSearch />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/modernpage" element={<ModernPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

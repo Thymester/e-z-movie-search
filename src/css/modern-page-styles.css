@@ -1,0 +1,131 @@
+.modern-page {
+    display: grid;
+    max-width: 60%;
+    gap: 20px;
+    margin: 0 auto;
+    padding: 50px;
+    text-align: center;
+    padding-bottom: 100px;
+  }
+  
+  .modern-page .modern-header h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #f7f7f7; /* Light gray text color */
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .modern-page .modern-header p {
+    font-size: 18px;
+    color: #c0c0c0; /* Light gray text color */
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .modern-page .modern-content p {
+    margin-bottom: 20px;
+  }
+  
+  .modern-page .modern-content a {
+    color: #66b3ff; /* Light blue link color */
+    text-decoration: none;
+  }
+  
+  .modern-page .modern-content a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Card animations */
+  .modern-card1,
+  .modern-card2 {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    background-color: #303030; /* Dark gray card background */
+    max-width: 70%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .modern-card1:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modern-card2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Colors */
+  :root {
+    --primary-color: #66b3ff; /* Light blue */
+    --secondary-color: #ff6666; /* Light red */
+    --background-color: #1a1a1a; /* Dark background */
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: #f7f7f7; /* Light gray text color */
+  }
+  
+  /* Typography */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .modern-page .modern-header h1,
+  .modern-page .modern-header p,
+  .modern-page .modern-content p {
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+  
+  .animated-border {
+    width: 100px;
+    height: 20px;
+    background-image: linear-gradient(90deg, #FF4E50, #F9D423, #1ABC9C, #3498DB);
+    background-size: 400% 400%;
+    animation: gradient 3s ease infinite;
+    border-radius: 10px;
+    margin: 20px auto;
+  }
+  
+  .animated-background {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, #EE5A24, #009432, #65C7F7, #D980FA);
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite, pulse 1s ease infinite alternate;
+    border-radius: 50%;
+    margin: 20px auto;
+  }
