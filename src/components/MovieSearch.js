@@ -100,13 +100,11 @@ const MovieSearch = () => {
     setPage(1);
     setSelectedButtonLabel(category);
   };
-
-  const handleSearch = () => {
-    if (query !== '') {
-      setPage(1);
-      fetchMovies();
-    }
-  };
+  
+  if (query !== '') {
+    setPage(1);
+    fetchMovies();
+  }
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
