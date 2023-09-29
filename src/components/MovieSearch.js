@@ -16,19 +16,7 @@ const MovieSearch = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedButtonLabel, setSelectedButtonLabel] = useState('Movies');
 
-  const fetchMovieCast = async (movieId) => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
-      );
-      return response.data.cast;
-    } catch (error) {
-      console.error('Error fetching movie cast:', error);
-      return [];
-    }
-  };
-
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       let response;
       if (query) {
@@ -86,7 +74,7 @@ const MovieSearch = () => {
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
-  };
+  }, [query, page, selectedCategory]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,17 +88,22 @@ const MovieSearch = () => {
     fetchData();
   }, [query, page, selectedCategory, fetchMovies]);
 
+  const fetchMovieCast = async (movieId) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
+      );
+      return response.data.cast;
+    } catch (error) {
+      console.error('Error fetching movie cast:', error);
+      return [];
+    }
+  };
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setPage(1);
     setSelectedButtonLabel(category);
-  };
-
-  const handleSearch = () => {
-    if (query !== '') {
-      setPage(1);
-      fetchMovies();
-    }
   };
 
   const loadMore = () => {
