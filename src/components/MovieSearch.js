@@ -18,9 +18,10 @@ const MovieSearch = () => {
 
   useEffect(() => {
     fetchMovies();
-        if (query !== '') {
-      fetchMovies();
-    }
+      if (query !== '') {
+        setPage(1);
+        fetchMovies();
+      }
   }, [query, page, selectedCategory]);
 
   const fetchMovieCast = async (movieId) => {
@@ -100,11 +101,6 @@ const MovieSearch = () => {
     setPage(1);
     setSelectedButtonLabel(category);
   };
-  
-  if (query !== '') {
-    setPage(1);
-    fetchMovies();
-  }
 
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
