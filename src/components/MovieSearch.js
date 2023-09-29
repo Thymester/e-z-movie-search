@@ -50,7 +50,6 @@ const MovieSearch = () => {
             response = await axios.get(`${TOP_WEEK_MOVIES_URL}?api_key=${API_KEY}&page=${page}`);
             break;
           case 'topMonth':
-            const currentDate = new Date();
             const lastMonthDate = new Date();
             lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
             response = await axios.get(
