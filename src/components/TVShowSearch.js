@@ -16,7 +16,6 @@ const TVShowSearch = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShow, setSelectedShow] = useState(null);
   const [selectedButtonLabel, setSelectedButtonLabel] = useState('all');
-  const [setSelectedMediaType] = useState('tvShows');
 
   const fetchTVShows = useCallback(async () => {
     try {
@@ -85,12 +84,6 @@ const TVShowSearch = () => {
 
     fetchData();
   }, [query, page, selectedCategory, fetchTVShows]);
-
-  const handleMediaTypeChange = (mediaType) => {
-    setSelectedMediaType(mediaType);
-    setPage(1);
-    setSelectedButtonLabel(mediaType === 'movies' ? 'Movies' : 'TV Shows');
-  };
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);

@@ -16,7 +16,6 @@ const MovieSearch = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedButtonLabel, setSelectedButtonLabel] = useState('all');
-  const [setSelectedMediaType] = useState('movies');
 
   const fetchMovies = useCallback(async () => {
     try {
@@ -97,12 +96,6 @@ const MovieSearch = () => {
       console.error('Error fetching movie cast:', error);
       return [];
     }
-  };
-
-  const handleMediaTypeChange = (mediaType) => {
-    setSelectedMediaType(mediaType);
-    setPage(1);
-    setSelectedButtonLabel(mediaType.charAt(0).toUpperCase() + mediaType.slice(1));
   };
 
   const handleCategoryChange = (category) => {
