@@ -18,11 +18,11 @@ const MovieSearch = () => {
 
   useEffect(() => {
     fetchMovies();
-      if (query !== '') {
-        setPage(1);
-        fetchMovies();
-      }
-  }, [query, page, selectedCategory]);
+    if (query !== '') {
+      setPage(1);
+      fetchMovies();
+    }
+  }, [query, page, selectedCategory, fetchMovies]);
 
   const fetchMovieCast = async (movieId) => {
     try {
