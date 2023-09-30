@@ -4,6 +4,38 @@
   padding: 20px;
 }
 
+.homepage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.homepage-link {
+  padding: 10px 20px;
+  margin: 5px 2px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.homepage-content {
+  text-align: center;
+}
+
+.homepage-title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.homepage-description {
+  font-size: 1.2em;
+  color: #555;
+}
+
 .navbar {
   display: flex;
   justify-content: flex-start;
@@ -37,8 +69,17 @@
 }
 
 .navbarh1 {
-  margin: 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  color: #000;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbarh1:hover {
+  color: #00f;
 }
 
 .websiteTitle {
@@ -105,6 +146,10 @@
 }
 
 .movie-search-button.selected {
+  background-color: #004c9c;
+}
+
+.tv-search-button.selected {
   background-color: #004c9c;
 }
 

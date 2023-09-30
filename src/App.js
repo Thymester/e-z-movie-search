@@ -4,6 +4,27 @@ import MovieSearch from './components/MovieSearch';
 import TVShowSearch from './components/TVShowSearch';
 import './App.css';
 
+const HomePage = () => {
+  return (
+    <div className="homepage">
+      <div className="homepage-content">
+        <h1 className="homepage-title">Welcome to E-Z Movie Search</h1>
+        <p className="homepage-description">
+          Explore movies and TV shows with ease!
+        </p>
+        <div className="homepage-links">
+          <Link to="/movies" className="homepage-link">
+            Explore Movies
+          </Link>
+          <Link to="/tvshows" className="homepage-link">
+            Explore TV Shows
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function App() {
   const [selectedMediaType, setSelectedMediaType] = useState('movies');
 
@@ -13,8 +34,7 @@ function App() {
 
   return (
     <Router>
-      <div>
-        <div className="navbar">
+      <div className="navbar">
           <Link
             to="/movies"
             className={`navbar-button ${selectedMediaType === 'movies' ? 'selected' : ''}`}
@@ -29,15 +49,17 @@ function App() {
           >
             TV Shows
           </Link>
-          <h1 className="navbarh1">E-Z Movie Search</h1>
-        </div>
-        <div className="content">
-          <Routes>
-            <Route path="/movies/*" element={<MovieSearch />} />
-            <Route path="/tvshows/*" element={<TVShowSearch />} />
-          </Routes>
-        </div>
+          <Link to="/" className="navbarh1">E-Z Movie Search</Link>
       </div>
+        <div>
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/movies/*" element={<MovieSearch />} />
+              <Route path="/tvshows/*" element={<TVShowSearch />} />
+            </Routes>
+          </div>
+        </div>
     </Router>
   );
 }

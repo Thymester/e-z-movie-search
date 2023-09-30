@@ -15,7 +15,7 @@ const MovieSearch = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [selectedButtonLabel, setSelectedButtonLabel] = useState('all');
+  const [setSelectedButtonLabel] = useState('all');
 
   const fetchMovies = useCallback(async () => {
     try {
@@ -133,7 +133,7 @@ const MovieSearch = () => {
 
   return (
     <div className="movie-list-container">
-      <h2>Movies {query ? `Search Results for "${query}" ` : selectedButtonLabel}</h2>
+      <h2>Movies</h2>
       <input
         type="text"
         placeholder="Search for a movie..."
@@ -141,12 +141,37 @@ const MovieSearch = () => {
         onChange={(e) => setQuery(e.target.value)}
         className="movie-search-input"
       />
-      <div className="category-buttons">
-        <button className="movie-search-button" onClick={() => handleCategoryChange('all')}>All</button>
-        <button className="movie-search-button" onClick={() => handleCategoryChange('popular')}>Popular</button>
-        <button className="movie-search-button" onClick={() => handleCategoryChange('topWeek')}>Top Week</button>
-        <button className="movie-search-button" onClick={() => handleCategoryChange('topMonth')}>Top Month</button>
-        <button className="movie-search-button" onClick={() => handleCategoryChange('newReleases')}>New Releases</button>
+        <div className="category-buttons">
+          <button
+            className={`movie-search-button ${selectedCategory === 'all' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('all')}
+          >
+            All
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'popular' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('popular')}
+          >
+            Popular
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'topWeek' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topWeek')}
+          >
+            Top Week
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'topMonth' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topMonth')}
+          >
+            Top Month
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'newReleases' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('newReleases')}
+          >
+            New Releases
+          </button>
         </div>
       <div className="movie-list">
         {movies.map((movie) => (
