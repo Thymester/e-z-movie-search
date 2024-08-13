@@ -15,7 +15,7 @@ const TVShowSearch = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShow, setSelectedShow] = useState(null);
-  const [setSelectedButtonLabel] = useState('all');
+  const [selectedButtonLabel, setSelectedButtonLabel] = useState('all'); // Corrected
 
   const fetchTVShows = useCallback(async () => {
     try {
@@ -88,7 +88,7 @@ const TVShowSearch = () => {
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setPage(1);
-    setSelectedButtonLabel(category);
+    setSelectedButtonLabel(category); // Correct usage
   };
 
   const loadMore = () => {
@@ -130,7 +130,6 @@ const TVShowSearch = () => {
 
   return (
     <div className="movie-list-container">
-      <h2>TV Shows</h2>
       <input
         type="text"
         placeholder="Search for a TV show..."

@@ -41,20 +41,26 @@ function App() {
     <Router>
       <div className="navbar">
         <Link
+          to="/"
+          className={`media-link ${selectedMediaType === 'home' ? 'selected' : ''}`}
+          onClick={() => handleMediaTypeChange('home')}
+        >
+          Home
+        </Link>
+        <Link
           to="/movies"
-          className={`navbar-button ${selectedMediaType === 'movies' ? 'selected' : ''}`}
+          className={`media-link ${selectedMediaType === 'movies' ? 'selected' : ''}`}
           onClick={() => handleMediaTypeChange('movies')}
         >
           Movies
         </Link>
         <Link
           to="/tvshows"
-          className={`navbar-button ${selectedMediaType === 'tvShows' ? 'selected' : ''}`}
+          className={`media-link ${selectedMediaType === 'tvShows' ? 'selected' : ''}`}
           onClick={() => handleMediaTypeChange('tvShows')}
         >
           TV Shows
         </Link>
-        <Link to="/" className="navbarh1">E-Z Movie Search</Link>
       </div>
       <div>
         <div className="content">

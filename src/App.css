@@ -1,11 +1,31 @@
+body {
+  overflow-x: hidden;
+}
+
 .movie-list-container {
-  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
 
-@media only screen and (max-width: 600px) {
+.media-link {
+  color: inherit;
+  text-decoration: none;
+  padding: 10px;
+  margin: 5px;
+  font-size: 1rem;
+}
+
+.media-link.selected {
+  font-weight: bold;
+  border-bottom: 2px solid currentColor;
+}
+
+@media (max-width: 1000px) {
 .movie-list-container {
+  display: grid;
     max-width: 100%;
     margin: 0 auto;
   }
@@ -45,6 +65,7 @@
 
 .navbar {
   display: flex;
+  width: 100%;
   justify-content: flex-start;
   background-color: #fafafa;
   padding: 5px;
@@ -55,49 +76,13 @@
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-button {
-  background-color: #007BFF;
-  color: white;
-  margin: 2px;
-  border: 1px solid #555;
-  text-decoration: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  transition: background-color 0.3s ease-in-out;
-  border-radius: 5px;
-}
-
-.navbar-button:hover {
-  background-color: #004c9c;
-}
-
-.navbar-button.selected {
-  background-color: #004c9c;
-}
-
-.navbarh1 {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  text-decoration: none;
-  color: #000;
-  font-size: 24px;
-  font-weight: bold;
-}
-
 .navbarh1:hover {
   color: #00f;
 }
 
-.websiteTitle {
-  margin: 5px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .movie-search-input {
   width: calc(100% - 80px);
+  height: 30px;
   padding: 10px;
   margin: 5px auto;
   border: 1px solid #ccc;
@@ -136,12 +121,30 @@
 }
 
 .load-more-button {
-  padding: 10px 20px;
+  position: fixed;
+  bottom: 2%;
+  left: 2%;
+  height: 45px;
+  width: 150px;
+  padding: 10px;
   background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1000px) {
+  .load-more-button {
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
+    right: 30px;
+    left: auto;
+  }
 }
 
 .movie-search-button:hover {
