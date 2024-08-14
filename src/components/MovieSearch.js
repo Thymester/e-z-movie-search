@@ -15,7 +15,6 @@ const MovieSearch = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [selectedButtonLabel, setSelectedButtonLabel] = useState('all'); // Renamed this state variable
 
   const fetchMovies = useCallback(async () => {
     try {
@@ -101,7 +100,6 @@ const MovieSearch = () => {
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setPage(1);
-    setSelectedButtonLabel(category); // This should now work correctly
   };
 
   const loadMore = () => {

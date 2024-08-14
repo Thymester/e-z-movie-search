@@ -15,7 +15,6 @@ const TVShowSearch = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedShow, setSelectedShow] = useState(null);
-  const [selectedButtonLabel, setSelectedButtonLabel] = useState('all'); // Corrected
 
   const fetchTVShows = useCallback(async () => {
     try {
@@ -88,7 +87,6 @@ const TVShowSearch = () => {
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
     setPage(1);
-    setSelectedButtonLabel(category); // Correct usage
   };
 
   const loadMore = () => {
