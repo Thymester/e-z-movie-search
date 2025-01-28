@@ -18,9 +18,9 @@ body {
   font-size: 1rem;
 }
 
-.media-link.selected {
+.media-link:hover {
   font-weight: bold;
-  border-bottom: 2px solid currentColor;
+  transform: scale(1.05);
 }
 
 @media (max-width: 1000px) {
@@ -76,15 +76,10 @@ body {
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
 }
 
-.navbarh1:hover {
-  color: #00f;
-}
-
 .movie-search-input {
   width: calc(100% - 80px);
   height: 30px;
   padding: 10px;
-  margin: 5px auto;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
@@ -198,8 +193,6 @@ body {
 
 .nav-bar {
   display: flex;
-  margin-bottom: 20px;
-  margin: 5px auto;
 }
 
 .nav-item {

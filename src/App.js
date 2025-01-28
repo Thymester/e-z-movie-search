@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import MovieSearch from './components/MovieSearch';
 import TVShowSearch from './components/TVShowSearch';
@@ -18,46 +17,28 @@ const HomePage = () => {
 };
 
 function App() {
-  const [selectedMediaType, setSelectedMediaType] = useState(() => {
-    // Use localStorage to retrieve the last selected media type
-    return localStorage.getItem('selectedMediaType') || 'movies';
-  });
-
-  const handleMediaTypeChange = (mediaType) => {
-    setSelectedMediaType(mediaType);
-    // Save the selected media type to localStorage
-    localStorage.setItem('selectedMediaType', mediaType);
-  };
-
-  useEffect(() => {
-    // Set the selected media type from localStorage on component mount
-    const storedMediaType = localStorage.getItem('selectedMediaType');
-    if (storedMediaType) {
-      setSelectedMediaType(storedMediaType);
-    }
-  }, []);
 
   return (
     <Router>
       <div className="navbar">
         <Link
           to="/"
-          className={`media-link ${selectedMediaType === 'home' ? 'selected' : ''}`}
-          onClick={() => handleMediaTypeChange('home')}
+          className={`media-link ${ 'home' ? 'selected' : ''}`}
+          onClick={() => ('home')}
         >
           Home
         </Link>
         <Link
           to="/movies"
-          className={`media-link ${selectedMediaType === 'movies' ? 'selected' : ''}`}
-          onClick={() => handleMediaTypeChange('movies')}
+          className={`media-link ${ 'movies' ? 'selected' : ''}`}
+          onClick={() => ('movies')}
         >
           Movies
         </Link>
         <Link
           to="/tvshows"
-          className={`media-link ${selectedMediaType === 'tvShows' ? 'selected' : ''}`}
-          onClick={() => handleMediaTypeChange('tvShows')}
+          className={`media-link ${ 'tvShows' ? 'selected' : ''}`}
+          onClick={() => ('tvShows')}
         >
           TV Shows
         </Link>
