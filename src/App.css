@@ -7,14 +7,14 @@ body {
   justify-content: center;
   max-width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .media-link {
   color: inherit;
   text-decoration: none;
-  padding: 10px;
-  margin: 5px;
+  padding: .625rem;
+  margin: .313rem;
   font-size: 1rem;
 }
 
@@ -23,10 +23,10 @@ body {
   transform: scale(1.05);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 62.5rem) {
 .movie-list-container {
   display: grid;
-    max-width: 100%;
+    max-width: 50%;
     margin: 0 auto;
   }
 }
@@ -39,12 +39,12 @@ body {
 }
 
 .homepage-link {
-  padding: 10px 20px;
-  margin: 5px 2px;
+  padding: .625rem 1.25rem;
+  margin: .313rem .125rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
 }
 
@@ -55,7 +55,7 @@ body {
 .homepage-title {
   font-size: 2em;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: .625rem;
 }
 
 .homepage-description {
@@ -68,50 +68,57 @@ body {
   width: 100%;
   justify-content: flex-start;
   background-color: #fafafa;
-  padding: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: .313rem;
+  box-shadow: 0 .125rem .313rem rgba(0, 0, 0, 0.1);
 }
 
 .navbar:hover {
-  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 .188rem .438rem rgba(0, 0, 0, 0.1);
 }
 
 .movie-search-input {
-  width: calc(100% - 80px);
-  height: 30px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
+  width: 20%;
+  min-width: 20%;
+  height: 1.875rem;
+  padding: .625rem;
+  border: .063rem solid #ccc;
+  border-radius: .25rem;
+  margin-right: .625rem;
+}
+
+@media (max-width: 62.5rem) {
+  .movie-search-input {
+    width: 90%;
+  }
 }
 
 .media-type-button {
-  padding: 10px 20px;
-  margin: 5px 2px;
+  padding: .625rem 1.25rem;
+  margin: .313rem .125rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
 }
 
 .movie-search-button {
-  padding: 10px 20px;
-  margin: 5px 2px;
+  padding: .625rem 1.25rem;
+  margin: .313rem .125rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
 }
 
 .tv-search-button {
-  padding: 10px 20px;
-  margin: 5px 2px;
+  padding: .625rem 1.25rem;
+  margin: .313rem .125rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
 }
 
@@ -119,25 +126,25 @@ body {
   position: fixed;
   bottom: 2%;
   left: 2%;
-  height: 45px;
-  width: 150px;
-  padding: 10px;
+  height: 4.313rem;
+  width: 9.375rem;
+  padding: .625rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 62.5rem) {
   .load-more-button {
-    width: 120px;
-    height: 40px;
-    font-size: 14px;
-    right: 30px;
+    width: 11.25rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    right: 1.875rem;
     left: auto;
   }
 }
@@ -169,11 +176,11 @@ body {
 
 .movie-card {
   background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin: 10px;
-  padding: 10px;
-  width: 250px;
+  box-shadow: 0 0 .625rem rgba(0, 0, 0, 0.1);
+  border-radius: .5rem;
+  margin: .625rem;
+  padding: .625rem;
+  width: 15.625rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -184,11 +191,11 @@ body {
 
 .movie-card img {
   width: 100%;
-  border-radius: 8px;
+  border-radius: .5rem;
 }
 
 .movie-details {
-  padding: 10px 0;
+  padding: .625rem 0;
 }
 
 .nav-bar {
@@ -196,11 +203,11 @@ body {
 }
 
 .nav-item {
-  padding: 10px 20px;
+  padding: .625rem 1.25rem;
   cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
+  border: .063rem solid #ccc;
+  border-radius: .25rem;
+  margin-right: .625rem;
 }
 
 .nav-item:hover {
@@ -225,11 +232,11 @@ body {
   max-height: 75%;
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border: .063rem solid rgba(0, 0, 0, 0.1);
+  border-radius: .625rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 37.5rem) {
   .modal {
     display: flex;
     flex-direction: column;
@@ -242,23 +249,23 @@ body {
     max-height: 95%;
     overflow-y: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border: .063rem solid rgba(0, 0, 0, 0.1);
+    border-radius: .625rem;
   }
 }
 
 .close {
-  margin-right: 10px;
-  margin-top: 10px;
-  padding: 10px 20px;
+  margin-right: .625rem;
+  margin-top: .625rem;
+  padding: .625rem 1.25rem;
   background-color: #007BFF;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: .25rem;
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 37.5rem) {
 .modal {
     width: 80%;
   }
@@ -271,7 +278,7 @@ body {
 
 .close {
   float: right;
-  font-size: 24px;
+  font-size: 2.25rem;
   font-weight: bold;
   cursor: pointer;
 }
