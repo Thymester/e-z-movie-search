@@ -276,6 +276,10 @@ body {
   width: 100%;
 }
 
+.modal-content p, h2, h3 {
+  margin: 15px;
+}
+
 .close {
   float: right;
   font-size: 2.25rem;
