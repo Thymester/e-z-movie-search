@@ -547,25 +547,25 @@ body {
     padding: 2rem 1.5rem;
   }
   
-  /* Scale down orbit for mobile */
+  /* Optimized orbit for tablets/large phones */
   .orbit-ring-1 {
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    height: 320px;
   }
   
   .orbit-ring-2 {
-    width: 380px;
-    height: 380px;
+    width: 420px;
+    height: 420px;
   }
   
   .orbit-ring-3 {
-    width: 480px;
-    height: 480px;
+    width: 520px;
+    height: 520px;
   }
   
   .orbit-item {
-    width: 40px;
-    height: 60px;
+    width: 45px;
+    height: 68px;
   }
   
   .movie-list-container {
@@ -620,13 +620,97 @@ body {
     max-width: 100%;
   }
   
-  /* Hide orbit on very small screens to avoid clutter */
+  /* Keep orbit visible but make it smaller for mobile */
   .orbit-container {
-    display: none;
+    display: block; /* Changed from 'none' to 'block' */
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Smaller orbit rings for mobile phones */
+  .orbit-ring-1 {
+    width: 250px;
+    height: 250px;
+  }
+  
+  .orbit-ring-2 {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .orbit-ring-3 {
+    width: 390px;
+    height: 390px;
+  }
+  
+  /* Smaller orbit items for mobile */
+  .orbit-item {
+    width: 35px;
+    height: 52px;
+    border-width: 1px;
   }
   
   .homepage-content {
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
+    z-index: 20; /* Ensure content stays above orbit */
+  }
+  
+  .homepage-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .homepage-description {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+}
+
+/* Extra small screens - keep orbit but make it minimal */
+@media (max-width: 360px) {
+  .orbit-ring-1 {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .orbit-ring-2 {
+    width: 260px;
+    height: 260px;
+  }
+  
+  .orbit-ring-3 {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .orbit-item {
+    width: 28px;
+    height: 42px;
+    border-radius: 4px;
+  }
+  
+  /* Slow down animations on very small screens for better performance */
+  .orbit-ring-1 {
+    animation: rotate-clockwise 90s linear infinite;
+  }
+  
+  .orbit-ring-2 {
+    animation: rotate-counter-clockwise 120s linear infinite;
+  }
+  
+  .orbit-ring-3 {
+    animation: rotate-clockwise 150s linear infinite;
+  }
+  
+  .orbit-item {
+    animation: counter-rotate 90s linear infinite;
+  }
+  
+  .orbit-item-2 {
+    animation: counter-rotate 120s linear infinite;
+  }
+  
+  .orbit-item-3 {
+    animation: counter-rotate 150s linear infinite;
   }
 }
 
