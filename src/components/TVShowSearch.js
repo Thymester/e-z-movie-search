@@ -29,7 +29,7 @@ const TVShowSearch = () => {
   }, []);
 
   // Fetch watch providers for a specific TV show
-  const fetchWatchProviders = async (tvId) => {
+  const fetchWatchProviders = useCallback(async (tvId) => {
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/tv/${tvId}/watch/providers?api_key=${API_KEY}`
@@ -39,10 +39,10 @@ const TVShowSearch = () => {
       console.error('Error fetching watch providers:', error);
       return null;
     }
-  };
+  }, []);
 
   // Fetch providers for all TV shows
-  const fetchProvidersForShows = async (showList) => {
+  const fetchProvidersForShows = useCallback(async (showList) => {
     const showsWithProviderData = await Promise.all(
       showList.map(async (show) => {
         const providers = await fetchWatchProviders(show.id);
@@ -50,9 +50,9 @@ const TVShowSearch = () => {
       })
     );
     return showsWithProviderData;
-  };
+  }, [fetchWatchProviders]);
 
-  const getApiUrl = (category, genreId, currentPage) => {
+  const getApiUrl = useCallback((category, genreId, currentPage) => {
     const baseParams = `api_key=${API_KEY}&page=${currentPage}`;
     const genreParam = genreId ? `&with_genres=${genreId}` : '';
     
@@ -93,7 +93,7 @@ const TVShowSearch = () => {
         }
         return `https://api.themoviedb.org/3/tv/popular?${baseParams}`;
     }
-  };
+  }, [searchTerm]);
 
   const searchTVShows = useCallback(async (isNewSearch = false) => {
     setLoading(true);
@@ -119,7 +119,7 @@ const TVShowSearch = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedCategory, selectedGenre, page, searchTerm]);
+  }, [selectedCategory, selectedGenre, page, getApiUrl, fetchProvidersForShows]);
 
   // Load popular shows by default and when category/genre changes
   useEffect(() => {
