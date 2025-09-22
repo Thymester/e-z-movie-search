@@ -131,45 +131,48 @@ const MovieSearch = () => {
 
   return (
     <div className="movie-list-container">
-      <input
-        type="text"
-        placeholder="Search for a movie..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="movie-search-input"
-      />
-      <div className="category-buttons">
-        <button
-          className={`movie-search-button ${selectedCategory === 'all' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('all')}
-        >
-          All
-        </button>
-        <button
-          className={`movie-search-button ${selectedCategory === 'popular' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('popular')}
-        >
-          Popular
-        </button>
-        <button
-          className={`movie-search-button ${selectedCategory === 'topWeek' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('topWeek')}
-        >
-          Top Week
-        </button>
-        <button
-          className={`movie-search-button ${selectedCategory === 'topMonth' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('topMonth')}
-        >
-          Top Month
-        </button>
-        <button
-          className={`movie-search-button ${selectedCategory === 'newReleases' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('newReleases')}
-        >
-          New Releases
-        </button>
+      <div className="search-controls">
+        <input
+          type="text"
+          placeholder="Search for a movie..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="movie-search-input"
+        />
+        <div className="category-buttons">
+          <button
+            className={`movie-search-button ${selectedCategory === 'all' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('all')}
+          >
+            All
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'popular' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('popular')}
+          >
+            Popular
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'topWeek' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topWeek')}
+          >
+            Top Week
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'topMonth' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topMonth')}
+          >
+            Top Month
+          </button>
+          <button
+            className={`movie-search-button ${selectedCategory === 'newReleases' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('newReleases')}
+          >
+            New Releases
+          </button>
+        </div>
       </div>
+      
       <div className="movie-list">
         {movies.map((movie) => (
           <div key={movie.id} className="movie-card" onClick={() => openModal(movie)}>

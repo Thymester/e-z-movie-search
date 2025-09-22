@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import '../App.css';
 
-const API_KEY = 'c95b317e79468f9ab81e1b6511e28c0d'; // Replace with your actual API key
+const API_KEY = 'c95b317e79468f9ab81e1b6511e28c0d';
 const POPULAR_TV_SHOWS_URL = 'https://api.themoviedb.org/3/tv/popular';
 const TOP_WEEK_TV_SHOWS_URL = 'https://api.themoviedb.org/3/tv/top_rated';
 const TOP_MONTH_TV_SHOWS_URL = 'https://api.themoviedb.org/3/discover/tv';
@@ -128,45 +128,48 @@ const TVShowSearch = () => {
 
   return (
     <div className="movie-list-container">
-      <input
-        type="text"
-        placeholder="Search for a TV show..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="movie-search-input"
-      />
-      <div className="category-buttons">
-        <button
-          className={`tv-search-button ${selectedCategory === 'all' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('all')}
-        >
-          All
-        </button>
-        <button
-          className={`tv-search-button ${selectedCategory === 'popular' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('popular')}
-        >
-          Popular
-        </button>
-        <button
-          className={`tv-search-button ${selectedCategory === 'topWeek' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('topWeek')}
-        >
-          Top Week
-        </button>
-        <button
-          className={`tv-search-button ${selectedCategory === 'topMonth' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('topMonth')}
-        >
-          Top Month
-        </button>
-        <button
-          className={`tv-search-button ${selectedCategory === 'newReleases' ? 'selected' : ''}`}
-          onClick={() => handleCategoryChange('newReleases')}
-        >
-          New Releases
-        </button>
+      <div className="search-controls">
+        <input
+          type="text"
+          placeholder="Search for a TV show..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="movie-search-input"
+        />
+        <div className="category-buttons">
+          <button
+            className={`tv-search-button ${selectedCategory === 'all' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('all')}
+          >
+            All
+          </button>
+          <button
+            className={`tv-search-button ${selectedCategory === 'popular' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('popular')}
+          >
+            Popular
+          </button>
+          <button
+            className={`tv-search-button ${selectedCategory === 'topWeek' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topWeek')}
+          >
+            Top Week
+          </button>
+          <button
+            className={`tv-search-button ${selectedCategory === 'topMonth' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('topMonth')}
+          >
+            Top Month
+          </button>
+          <button
+            className={`tv-search-button ${selectedCategory === 'newReleases' ? 'selected' : ''}`}
+            onClick={() => handleCategoryChange('newReleases')}
+          >
+            New Releases
+          </button>
+        </div>
       </div>
+
       <div className="movie-list">
         {shows.map((show) => (
           <div key={show.id} className="movie-card" onClick={() => openModal(show)}>
