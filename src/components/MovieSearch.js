@@ -8,10 +8,13 @@ const MovieSearch = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [genres, setGenres] = useState([]);
+
+  const ITEMS_PER_PAGE = 50;
 
   // Fetch genres on component mount
   useEffect(() => {
@@ -52,8 +55,8 @@ const MovieSearch = () => {
     return moviesWithProviderData;
   }, [fetchWatchProviders]);
 
-  const getApiUrl = useCallback((category, genreId, currentPage) => {
-    const baseParams = `api_key=${API_KEY}&page=${currentPage}`;
+  const getApiUrl = useCallback((category, genreId, page) => {
+    const baseParams = `api_key=${API_KEY}&page=${page}`;
     const genreParam = genreId ? `&with_genres=${genreId}` : '';
     
     if (searchTerm.trim()) {
@@ -95,46 +98,68 @@ const MovieSearch = () => {
     }
   }, [searchTerm]);
 
-  const searchMovies = useCallback(async (isNewSearch = false) => {
+  const searchMovies = useCallback(async (page = 1) => {
     setLoading(true);
-    const currentPage = isNewSearch ? 1 : page;
     
     try {
-      const url = getApiUrl(selectedCategory, selectedGenre, currentPage);
-      const response = await axios.get(url);
-      const moviesWithImages = response.data.results.filter(movie => movie.poster_path);
+      // We need to fetch multiple pages to get 50 items since TMDB returns 20 per page
+      const pagesToFetch = Math.ceil(ITEMS_PER_PAGE / 20); // 3 pages to get 50+ items
+      const startPage = (page - 1) * pagesToFetch + 1;
+      
+      const requests = [];
+      for (let i = 0; i < pagesToFetch; i++) {
+        const apiPage = startPage + i;
+        const url = getApiUrl(selectedCategory, selectedGenre, apiPage);
+        requests.push(axios.get(url));
+      }
+      
+      const responses = await Promise.all(requests);
+      
+      // Combine results from all pages
+      let allMovies = [];
+      let totalResults = 0;
+      
+      responses.forEach(response => {
+        const moviesWithImages = response.data.results.filter(movie => movie.poster_path);
+        allMovies = [...allMovies, ...moviesWithImages];
+        totalResults = response.data.total_results;
+      });
+      
+      // Take only 50 items
+      const limitedMovies = allMovies.slice(0, ITEMS_PER_PAGE);
       
       // Fetch providers for the movies
-      const moviesWithProviderData = await fetchProvidersForMovies(moviesWithImages);
+      const moviesWithProviderData = await fetchProvidersForMovies(limitedMovies);
       
-      if (isNewSearch) {
-        setMovies(moviesWithProviderData);
-        setPage(2);
-      } else {
-        setMovies(prev => [...prev, ...moviesWithProviderData]);
-        setPage(prev => prev + 1);
-      }
+      setMovies(moviesWithProviderData);
+      
+      // Calculate total pages based on 50 items per page
+      const calculatedTotalPages = Math.ceil(totalResults / ITEMS_PER_PAGE);
+      setTotalPages(Math.min(calculatedTotalPages, 500)); // Limit to 500 pages for performance
+      
     } catch (error) {
       console.error('Error searching movies:', error);
     } finally {
       setLoading(false);
     }
-  }, [selectedCategory, selectedGenre, page, getApiUrl, fetchProvidersForMovies]);
+  }, [selectedCategory, selectedGenre, getApiUrl, fetchProvidersForMovies]);
 
-  // Load popular movies by default and when category/genre changes
+  // Load movies when page, category, or genre changes
   useEffect(() => {
-    searchMovies(true);
-  }, [selectedCategory, selectedGenre, searchMovies]);
+    searchMovies(currentPage);
+  }, [selectedCategory, selectedGenre, currentPage, searchMovies]);
 
   // Handle search when search term changes
   useEffect(() => {
     if (searchTerm.trim()) {
       const timeoutId = setTimeout(() => {
-        searchMovies(true);
+        setCurrentPage(1);
+        searchMovies(1);
       }, 500); // Debounce search
       return () => clearTimeout(timeoutId);
     } else if (!searchTerm) {
-      searchMovies(true);
+      setCurrentPage(1);
+      searchMovies(1);
     }
   }, [searchTerm, searchMovies]);
 
@@ -152,30 +177,32 @@ const MovieSearch = () => {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    setPage(1);
+    setCurrentPage(1);
   };
 
   const handleGenreChange = (genreId) => {
     setSelectedGenre(genreId);
-    setPage(1);
+    setCurrentPage(1);
   };
 
   const handleRemoveFilters = () => {
     setSelectedGenre('');
     setSelectedCategory('');
     setSearchTerm('');
-    setPage(1);
+    setCurrentPage(1);
   };
 
   const handleShowAll = () => {
     setSelectedGenre('');
     setSelectedCategory('');
     setSearchTerm('');
-    setPage(1);
+    setCurrentPage(1);
   };
 
-  const loadMore = () => {
-    searchMovies(false);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    // Scroll to top when page changes
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Generate search URLs for major streaming services
@@ -496,21 +523,22 @@ const MovieSearch = () => {
           <div 
             key={movie.id} 
             className="movie-card"
-            onClick={() => handleMovieClick(movie)}
           >
-            <img 
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
-            <div className="movie-details">
-              <h3>{movie.title}</h3>
-              <p>Release Date: {movie.release_date}</p>
-              <p>Rating: {movie.vote_average}/10</p>
-              <p>{movie.overview?.substring(0, 150)}...</p>
-              
-              {/* Streaming services links on the card */}
-              {renderStreamingLinks(movie.watchProviders, movie.title)}
+            <div onClick={() => handleMovieClick(movie)} style={{ cursor: 'pointer' }}>
+              <img 
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+              />
+              <div className="movie-details">
+                <h3>{movie.title}</h3>
+                <p>Release Date: {movie.release_date}</p>
+                <p>Rating: {movie.vote_average}/10</p>
+                <p>{movie.overview?.substring(0, 150)}...</p>
+              </div>
             </div>
+            
+            {/* Streaming services links on the card - separate from clickable area */}
+            {renderStreamingLinks(movie.watchProviders, movie.title)}
           </div>
         ))}
       </div>
@@ -525,13 +553,155 @@ const MovieSearch = () => {
         </div>
       )}
 
-      {movies.length > 0 && !loading && (
-        <button 
-          className="load-more-button"
-          onClick={loadMore}
-        >
-          Load More
-        </button>
+      {/* Pagination Controls */}
+      {!loading && movies.length > 0 && totalPages > 1 && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem',
+          margin: '2rem 0',
+          flexWrap: 'wrap'
+        }}>
+          {/* Previous Button */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            style={{
+              padding: '0.75rem 1.5rem',
+              background: currentPage === 1 ? 'var(--surface)' : 'var(--primary)',
+              color: currentPage === 1 ? 'var(--text-muted)' : 'white',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius)',
+              cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
+              fontWeight: '500',
+              transition: 'var(--transition)'
+            }}
+          >
+            ← Previous
+          </button>
+
+          {/* Page Numbers */}
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            {/* Show first page */}
+            {currentPage > 3 && (
+              <>
+                <button
+                  onClick={() => handlePageChange(1)}
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    background: 'var(--surface)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius)',
+                    cursor: 'pointer',
+                    fontWeight: '500'
+                  }}
+                >
+                  1
+                </button>
+                <span style={{ color: 'var(--text-muted)' }}>...</span>
+              </>
+            )}
+
+            {/* Show pages around current page */}
+            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+              const pageNum = Math.max(1, Math.min(totalPages, currentPage - 2 + i));
+              if (pageNum === currentPage) {
+                return (
+                  <button
+                    key={pageNum}
+                    style={{
+                      padding: '0.5rem 0.75rem',
+                      background: 'var(--primary)',
+                      color: 'white',
+                      border: '1px solid var(--primary)',
+                      borderRadius: 'var(--radius)',
+                      cursor: 'pointer',
+                      fontWeight: '600'
+                    }}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              }
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => handlePageChange(pageNum)}
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    background: 'var(--surface)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius)',
+                    cursor: 'pointer',
+                    fontWeight: '500',
+                    transition: 'var(--transition)'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.background = 'var(--surface-light)';
+                    e.target.style.color = 'var(--text-primary)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.background = 'var(--surface)';
+                    e.target.style.color = 'var(--text-secondary)';
+                  }}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+
+            {/* Show last page */}
+            {currentPage < totalPages - 2 && (
+              <>
+                <span style={{ color: 'var(--text-muted)' }}>...</span>
+                <button
+                  onClick={() => handlePageChange(totalPages)}
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    background: 'var(--surface)',
+                    color: 'var(--text-secondary)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius)',
+                    cursor: 'pointer',
+                    fontWeight: '500'
+                  }}
+                >
+                  {totalPages}
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Next Button */}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            style={{
+              padding: '0.75rem 1.5rem',
+              background: currentPage === totalPages ? 'var(--surface)' : 'var(--primary)',
+              color: currentPage === totalPages ? 'var(--text-muted)' : 'white',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius)',
+              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
+              fontWeight: '500',
+              transition: 'var(--transition)'
+            }}
+          >
+            Next →
+          </button>
+
+          {/* Page Info */}
+          <div style={{
+            color: 'var(--text-muted)',
+            fontSize: '0.9rem',
+            marginLeft: '1rem'
+          }}>
+            Page {currentPage} of {totalPages}
+          </div>
+        </div>
       )}
 
       {selectedMovie && (
